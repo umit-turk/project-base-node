@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const schema = mongoose.Schema(
   {
     is_active: { type: Boolean, default: true },
-    created_by: { type: mongoose.SchemaTypes.ObjectId, required: true },
+    created_by: { type: mongoose.SchemaTypes.ObjectId},
+    name: { type: String, required: true },
   },
   {
     timestamps: {
