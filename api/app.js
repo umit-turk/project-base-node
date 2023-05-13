@@ -21,11 +21,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use((req, res, next) => {
-  console.log("hello world")
-  next()
-})
-
 app.use('/api', require('./routes/index'));//http://localhost:3000
 
 
