@@ -4,6 +4,7 @@ const Categories = require("../db/models/Categories");
 const Response = require("../lib/Response");
 const CustomError = require("../lib/Error");
 const Enum = require("../config/Enum");
+const AuditLogs = require("../lib/AuditLogs")
 
 /*GET categories */
 router.get("/", async (req, res, next) => {
@@ -33,6 +34,7 @@ router.post("/add", async (req, res) => {
     });
 
     await cateory.save();
+    AuditLogs.info(req.user?.email, "Categories","Add",cateory)
 
     res.json(Response.successResponse({ success: true }));
   } catch (error) {
@@ -58,6 +60,7 @@ router.put("/update", async (req, res) => {
 
     await Categories.updateOne({ _id: body._id }, updates);
     res.json(Response.successResponse({ success: true }));
+    AuditLogs.info(req.user?.email, "Categories","Update",{_id:body._id, ...updates})
   } catch (error) {
     let errorResponse = Response.errorResponse(error);
     res.status(errorResponse.code).json(errorResponse);
@@ -76,6 +79,8 @@ router.delete("/delete", async (req, res) => {
       );
     await Categories.deleteOne({ _id: body._id });
     res.json(Response.successResponse({ success: true }));
+    AuditLogs.info(req.user?.email, "Categories","Delete",{_id:body._id})
+
   } catch (error) {
     let errorResponse = Response.errorResponse(error);
     res.status(errorResponse.code).json(errorResponse);
