@@ -3,7 +3,6 @@ const moment = require("moment");
 const router = express.Router();
 const Response = require("../lib/Response");
 const AuditLogs = require("../db/models/AuditLogs")
-const CustomError = require("../lib/Error");
 
 
 router.post("/", async (req, res) => {

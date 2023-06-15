@@ -13,7 +13,7 @@ router.get("/", async (req, res, next) => {
     let categories = await Categories.find({});
     res.json(Response.successResponse(categories));
   } catch (error) {
-    let errorResponse = Response.errorResponse(err);
+    let errorResponse = Response.errorResponse(error);
     res.status(errorResponse.code).json(errorResponse);
   }
 });
@@ -40,7 +40,7 @@ router.post("/add", async (req, res) => {
 
     res.json(Response.successResponse({ success: true }));
   } catch (error) {
-    logger.error(req.user?.email, "Categories","Add",err);
+    logger.error(req.user?.email, "Categories","Add",error);
     let errorResponse = Response.errorResponse(error);
     res.status(errorResponse.code).json(errorResponse);
   }
